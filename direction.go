@@ -2,6 +2,7 @@
 package direction
 
 import (
+	"github.com/kasworld/go-abs"
 	"github.com/kasworld/rand"
 )
 
@@ -74,19 +75,9 @@ func RandDir(rnd *rand.Rand) uint8 {
 
 /////
 
-func GetSignAbs(n int) (int, int) {
-	if n > 0 {
-		return 1, n
-	} else if n < 0 {
-		return -1, -n
-	} else {
-		return 0, 0
-	}
-}
-
 func DxDy2Dir8(dx, dy int) uint8 {
-	dxs, dxv := GetSignAbs(dx)
-	dys, dyv := GetSignAbs(dy)
+	dxs, dxv := abs.SignAbsi(dx)
+	dys, dyv := abs.SignAbsi(dy)
 	if dxv > dyv*2 {
 		dys = 0
 	}
@@ -97,8 +88,8 @@ func DxDy2Dir8(dx, dy int) uint8 {
 }
 
 func DxDy2Dir4(dx, dy int) uint8 {
-	dxs, dxv := GetSignAbs(dx)
-	dys, dyv := GetSignAbs(dy)
+	dxs, dxv := abs.SignAbsi(dx)
+	dys, dyv := abs.SignAbsi(dy)
 	if dxv >= dyv {
 		dys = 0
 	} else {
@@ -107,7 +98,7 @@ func DxDy2Dir4(dx, dy int) uint8 {
 	return Vt2Dir(dxs, dys)
 }
 func DxDy2Dir(dx, dy int) uint8 {
-	dxs, _ := GetSignAbs(dx)
-	dys, _ := GetSignAbs(dy)
+	dxs, _ := abs.SignAbsi(dx)
+	dys, _ := abs.SignAbsi(dy)
 	return Vt2Dir(dxs, dys)
 }
