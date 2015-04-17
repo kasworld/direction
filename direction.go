@@ -75,6 +75,7 @@ func RandDir(rnd *rand.Rand) uint8 {
 
 /////
 
+// find remote pos direction 8way
 func DxDy2Dir8(dx, dy int) uint8 {
 	dxs, dxv := abs.SignAbsi(dx)
 	dys, dyv := abs.SignAbsi(dy)
@@ -87,6 +88,7 @@ func DxDy2Dir8(dx, dy int) uint8 {
 	return Vt2Dir(dxs, dys)
 }
 
+// find remote pos direction 4way
 func DxDy2Dir4(dx, dy int) uint8 {
 	dxs, dxv := abs.SignAbsi(dx)
 	dys, dyv := abs.SignAbsi(dy)
@@ -97,6 +99,8 @@ func DxDy2Dir4(dx, dy int) uint8 {
 	}
 	return Vt2Dir(dxs, dys)
 }
+
+// contact only
 func DxDy2Dir(dx, dy int) uint8 {
 	dxs, _ := abs.SignAbsi(dx)
 	dys, _ := abs.SignAbsi(dy)
