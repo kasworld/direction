@@ -31,7 +31,7 @@ const (
 	Dir_nw
 )
 
-var Dir2Info = []struct {
+var dir2Info = []struct {
 	Name string
 	Vt   [2]int
 	Len  float64
@@ -50,10 +50,50 @@ var Dir2Info = []struct {
 var vt2Dir = [3][3]Dir_Type{}
 
 func init() {
-	for i, v := range Dir2Info {
+	// println("init direction")
+	for i, v := range dir2Info {
 		vt2Dir[v.Vt[0]+1][v.Vt[1]+1] = Dir_Type(i)
 	}
 }
+
+func (dt Dir_Type) String() string {
+	return dir2Info[dt].Name
+}
+
+func (dt Dir_Type) Vt() [2]int {
+	return dir2Info[dt].Vt
+}
+
+func (dt Dir_Type) Len() float64 {
+	return dir2Info[dt].Len
+}
+
+func (dt Dir_Type) TurnDir(turn int8) Dir_Type {
+	if dt == Dir_stop {
+		return dt
+	}
+	turn %= 8
+	return Dir_Type((int8(dt)-1+turn+8)%8 + 1)
+}
+
+func (dt Dir_Type) ReverseDir() Dir_Type {
+	vt := dir2Info[dt].Vt
+	return Vt2Dir(-vt[0], -vt[1])
+}
+func (dt Dir_Type) InverseX() Dir_Type {
+	vt := dir2Info[dt].Vt
+	return Vt2Dir(-vt[0], vt[1])
+}
+func (dt Dir_Type) InverseY() Dir_Type {
+	vt := dir2Info[dt].Vt
+	return Vt2Dir(vt[0], -vt[1])
+}
+
+func (dt Dir_Type) IsValid() bool {
+	return dt >= Dir_stop && dt <= Dir_nw
+}
+
+////
 
 func Vt2Dir(x, y int) Dir_Type { // -1 ~ 1
 	return vt2Dir[x+1][y+1]
@@ -62,31 +102,9 @@ func VtValidate(x, y int) bool {
 	return x >= -1 && x <= 1 && y >= -1 && y <= 1
 }
 
-func TurnDir(dir Dir_Type, turn int8) Dir_Type {
-	if dir == Dir_stop {
-		return dir
-	}
-	turn %= 8
-	return Dir_Type((int8(dir)-1+turn+8)%8 + 1)
-}
-func ReverseDir(dir Dir_Type) Dir_Type {
-	vt := Dir2Info[dir].Vt
-	return Vt2Dir(-vt[0], -vt[1])
-}
-func InverseX(dir Dir_Type) Dir_Type {
-	vt := Dir2Info[dir].Vt
-	return Vt2Dir(-vt[0], vt[1])
-}
-func InverseY(dir Dir_Type) Dir_Type {
-	vt := Dir2Info[dir].Vt
-	return Vt2Dir(vt[0], -vt[1])
-}
-
 func RandDir(rnd *rand.Rand) Dir_Type {
 	return Dir_Type(rnd.IntRange(1, 9))
 }
-
-/////
 
 // find remote pos direction 8way
 func DxDy2Dir8(dx, dy int) Dir_Type {
