@@ -12,10 +12,7 @@
 // 2d tile space direction
 package direction
 
-import (
-	"github.com/kasworld/go-abs"
-	"github.com/kasworld/rand"
-)
+import "github.com/kasworld/go-abs"
 
 type Dir_Type uint8
 
@@ -102,8 +99,8 @@ func VtValidate(x, y int) bool {
 	return x >= -1 && x <= 1 && y >= -1 && y <= 1
 }
 
-func RandDir(rnd *rand.Rand) Dir_Type {
-	return Dir_Type(rnd.IntRange(1, 9))
+func RandDir(rndfn func(st, ed int) int) Dir_Type {
+	return Dir_Type(rndfn(1, 9))
 }
 
 // find remote pos direction 8way
