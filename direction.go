@@ -12,7 +12,9 @@
 // 2d tile space direction
 package direction
 
-import "github.com/kasworld/go-abs"
+import (
+	"github.com/kasworld/go-abs"
+)
 
 type Direction_Type uint8
 
@@ -193,4 +195,25 @@ func CalcContactDirWrappedXY(x1, y1, x2, y2, xLen, yLen int) (bool, Direction_Ty
 		return false, 0
 	}
 	return true, Vt2Dir(dx, dy)
+}
+
+func Call8WayTile(ox, oy int, fn func(int, int) bool) []Direction_Type {
+	TileDirs := []Direction_Type{}
+	for i := Direction_Type(1); i <= 8; i++ {
+		x, y := ox+i.Vector()[0], oy+i.Vector()[1]
+		if fn(x, y) {
+			TileDirs = append(TileDirs, i)
+		}
+	}
+	return TileDirs
+}
+func Call4WayTile(ox, oy int, fn func(int, int) bool) []Direction_Type {
+	TileDirs := []Direction_Type{}
+	for i := Direction_Type(1); i <= 8; i += 2 {
+		x, y := ox+i.Vector()[0], oy+i.Vector()[1]
+		if fn(x, y) {
+			TileDirs = append(TileDirs, i)
+		}
+	}
+	return TileDirs
 }
