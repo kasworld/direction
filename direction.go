@@ -29,6 +29,7 @@ const (
 	Dir_sw
 	Dir_w
 	Dir_nw
+	Direction_Count int = iota
 )
 
 func (i Direction_Type) String() string {
@@ -129,9 +130,9 @@ func VtValidate(x, y int) bool {
 	return x >= -1 && x <= 1 && y >= -1 && y <= 1
 }
 
-func RandDir(rndfn func(st, ed int) int) Direction_Type {
-	return Direction_Type(rndfn(1, 9))
-}
+// func RandDir(rndfn func(st, ed int) int) Direction_Type {
+// 	return Direction_Type(rndfn(1, 9))
+// }
 
 // find remote pos direction 8way
 func DxDy2Dir8(dx, dy int) Direction_Type {
