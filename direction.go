@@ -13,6 +13,8 @@
 package direction
 
 import (
+	"math"
+
 	"github.com/kasworld/go-abs"
 )
 
@@ -43,13 +45,13 @@ var Dir2Info = []struct {
 }{
 	Dir_stop: {"Stop", [2]int{0, 0}, 0.0},
 	Dir_n:    {"N", [2]int{0, -1}, 1.0},
-	Dir_ne:   {"NE", [2]int{1, -1}, 1.4},
+	Dir_ne:   {"NE", [2]int{1, -1}, math.Sqrt2},
 	Dir_e:    {"E", [2]int{1, 0}, 1.0},
-	Dir_se:   {"SE", [2]int{1, 1}, 1.4},
+	Dir_se:   {"SE", [2]int{1, 1}, math.Sqrt2},
 	Dir_s:    {"S", [2]int{0, 1}, 1.0},
-	Dir_sw:   {"SW", [2]int{-1, 1}, 1.4},
+	Dir_sw:   {"SW", [2]int{-1, 1}, math.Sqrt2},
 	Dir_w:    {"W", [2]int{-1, 0}, 1.0},
-	Dir_nw:   {"NW", [2]int{-1, -1}, 1.4},
+	Dir_nw:   {"NW", [2]int{-1, -1}, math.Sqrt2},
 }
 
 var vt2Dir = [3][3]Direction_Type{}
