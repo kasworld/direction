@@ -35,10 +35,10 @@ const (
 )
 
 func (i Direction_Type) String() string {
-	return "Dir_" + Dir2Info[i].Name
+	return "Dir_" + attrib[i].Name
 }
 
-var Dir2Info = []struct {
+var attrib = []struct {
 	Name string
 	Vt   [2]int
 	Len  float64
@@ -58,32 +58,32 @@ var vt2Dir = [3][3]Direction_Type{}
 
 func init() {
 	// println("init direction")
-	for i, v := range Dir2Info {
+	for i, v := range attrib {
 		vt2Dir[v.Vt[0]+1][v.Vt[1]+1] = Direction_Type(i)
 	}
 }
 
 func (dt Direction_Type) Name() string {
-	return Dir2Info[dt].Name
+	return attrib[dt].Name
 }
 
 func (dt Direction_Type) Vector() [2]int {
-	return Dir2Info[dt].Vt
+	return attrib[dt].Vt
 }
 
 func (dt Direction_Type) DxDy() (int, int) {
-	return Dir2Info[dt].Vt[0], Dir2Info[dt].Vt[1]
+	return attrib[dt].Vt[0], attrib[dt].Vt[1]
 }
 
 func (dt Direction_Type) Dx() int {
-	return Dir2Info[dt].Vt[0]
+	return attrib[dt].Vt[0]
 }
 func (dt Direction_Type) Dy() int {
-	return Dir2Info[dt].Vt[1]
+	return attrib[dt].Vt[1]
 }
 
 func (dt Direction_Type) Len() float64 {
-	return Dir2Info[dt].Len
+	return attrib[dt].Len
 }
 
 func (dt Direction_Type) TurnDir(turn int8) Direction_Type {
@@ -95,15 +95,15 @@ func (dt Direction_Type) TurnDir(turn int8) Direction_Type {
 }
 
 func (dt Direction_Type) ReverseDir() Direction_Type {
-	vt := Dir2Info[dt].Vt
+	vt := attrib[dt].Vt
 	return Vt2Dir(-vt[0], -vt[1])
 }
 func (dt Direction_Type) InverseX() Direction_Type {
-	vt := Dir2Info[dt].Vt
+	vt := attrib[dt].Vt
 	return Vt2Dir(-vt[0], vt[1])
 }
 func (dt Direction_Type) InverseY() Direction_Type {
-	vt := Dir2Info[dt].Vt
+	vt := attrib[dt].Vt
 	return Vt2Dir(vt[0], -vt[1])
 }
 
@@ -120,7 +120,7 @@ func (dt Direction_Type) Add(dt2 Direction_Type) Direction_Type {
 }
 
 func (dt Direction_Type) MulXY(x, y int) (int, int) {
-	return Dir2Info[dt].Vt[0] * x, Dir2Info[dt].Vt[1] * y
+	return attrib[dt].Vt[0] * x, attrib[dt].Vt[1] * y
 }
 
 ////
